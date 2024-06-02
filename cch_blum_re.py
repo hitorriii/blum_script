@@ -61,7 +61,7 @@ def click_play_button(is_first_time):
             pass
         click(play_button_coords[0], play_button_coords[1])
         print_message('[🌙] | Кнопка Play нажата.')
-        time.sleep(1)  # Уменьшена задержка после нажатия кнопки "Play"
+        time.sleep(1)
     except Exception as e:
         pass
 
@@ -75,7 +75,7 @@ def find_and_click_bacteria():
         for y in range(0, height, 20):
             r, g, b = scrn.getpixel((x, y))
 
-            # Проверка на зеленые бактерии и избегание серых бомбочек
+            
             if (b in range(0, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
                 is_bomb = False
                 for bx in range(-5, 6):
@@ -119,36 +119,36 @@ def start_game():
     is_first_time = True
 
     while games_played < num_games:
-        # Нажимаем кнопку "Play" в начале каждой игры
+        
         click_play_button(is_first_time)
         is_first_time = False
 
         game_start_time = time.time()
-        while time.time() - game_start_time < 31:  # Игра длится 30 секунд
+        while time.time() - game_start_time < 31:  
             if keyboard.is_pressed('q'):
                 paused = not paused
                 if paused:
                     print('[🌙] | Пауза')
                 else:
                     print('[🌙] | Возобновление работы')
-                time.sleep(1)  # Небольшая задержка, чтобы избежать дребезга клавиши
+                time.sleep(1)  
 
             while paused:
                 if keyboard.is_pressed('q'):
                     paused = False
                     print('[🌙] | Возобновление работы')
-                    time.sleep(1)  # Небольшая задержка, чтобы избежать дребезга клавиши
+                    time.sleep(1)  
 
             bacteria_found = find_and_click_bacteria()
             if not bacteria_found and not paused:
-                time.sleep(0.1)  # Уменьшенная задержка между проверками
+                time.sleep(0.1)  
 
         games_played += 1
         print(f"[🌕] | Игра завершена. Игр сыграно: {games_played}")
 
         if games_played < num_games:
             is_first_time = False
-            time.sleep(2)  # Небольшая задержка перед началом следующей игры
+            time.sleep(2)  
 
     print(f'[☘️] | {num_games} билетов потрачено, скрипт приостановлен.')
 
